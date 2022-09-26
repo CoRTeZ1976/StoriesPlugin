@@ -24,7 +24,7 @@ body {
 	margin-left: 4px;
 }
 
-.timeline-chunk-active ~ .timeline-chunk > .timeline-chunk-inner {
+.active ~ .timeline-chunk > .timeline-chunk-inner {
 	width: 0;
 }
 
@@ -46,7 +46,7 @@ body {
 	display: none;
 }
 
-.player-chunk-active {
+.active {
 	display: block;
 }
 
