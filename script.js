@@ -1,27 +1,20 @@
-document.querySelector('.player-chunk-prev').addEventListener('click', function () {
-	function moveClass(className, activeClassName) {
-		let activeChunk = document.querySelector('.' + activeClassName),
-		prev = activeChunk.previousElementSibling;
-		if (prev && prev.classList.contains(className)) {
-			activeChunk.classList.remove(activeClassName);
-			activeChunk.previousElementSibling.classList.add(activeClassName);
-		}
+document.querySelector('.player-content').addEventListener('click', e => {
+	let
+		targetElement = e.target.classList[1],
+		activeChunks = document.querySelectorAll('.active'),
+		nextActiveChunk;
+	
+	if (targetElement === 'player-chunk-prev') {
+		nextActiveChunk = [activeChunks[0].previousElementSibling, activeChunks[1].previousElementSibling];
+	} else if (targetElement === 'player-chunk-next') {
+		nextActiveChunk = [activeChunks[0].nextElementSibling, activeChunks[1].nextElementSibling];
 	}
 	
-	moveClass('timeline-chunk','timeline-chunk-active');
-	moveClass('player-chunk','player-chunk-active');
+	if (nextActiveChunk[0] && nextActiveChunk[1]) {
+		activeChunks[0].classList.remove('active');
+		activeChunks[1].classList.remove('active');
+		nextActiveChunk[0].classList.add('active');
+		nextActiveChunk[1].classList.add('active');
+	}
 });
 
-document.querySelector('.player-chunk-next').addEventListener('click', function () {
-	function moveClass(className, activeClassName) {
-		let activeChunk = document.querySelector('.' + activeClassName),
-			prev = activeChunk.nextElementSibling;
-		if (prev && prev.classList.contains(className)) {
-			activeChunk.classList.remove(activeClassName);
-			activeChunk.nextElementSibling.classList.add(activeClassName);
-		}
-	}
-	
-	moveClass('timeline-chunk','timeline-chunk-active');
-	moveClass('player-chunk','player-chunk-active');
-});
