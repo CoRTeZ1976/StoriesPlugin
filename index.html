@@ -3,55 +3,29 @@
 <head>
 	<meta charset=UTF-8">
 	<link href="styles.css" rel="stylesheet">
+	<script src="script.js"></script>
 	<title>Stories</title>
 </head>
 <body>
-<div class="player">
-	<div class="timeline">
-		<div class="timeline-chunk timeline-chunk-active">
-			<div class="timeline-chunk-inner"></div>
-		</div>
-		<div class="timeline-chunk">
-			<div class="timeline-chunk-inner"></div>
-		</div>
-		<div class="timeline-chunk">
-			<div class="timeline-chunk-inner"></div>
-		</div>
-		<div class="timeline-chunk">
-			<div class="timeline-chunk-inner"></div>
-		</div>
-		<div class="timeline-chunk">
-			<div class="timeline-chunk-inner"></div>
-		</div>
-		<div class="timeline-chunk">
-			<div class="timeline-chunk-inner"></div>
-		</div>
-	</div>
-	<div class="player-content-wrapper">
-		<div class="player-chunk-switcher player-chunk-prev"></div>
-		<div class="player-chunk-switcher player-chunk-next"></div>
-		<div class="player-content">
-			<div class="player-chunk player-chunk-active">
-				<img alt="image1" src="img/chunk1.jpg">
-			</div>
-			<div class="player-chunk">
-				<img alt="image2" src="img/chunk2.jpg">
-			</div>
-			<div class="player-chunk">
-				<img alt="image3" src="img/chunk3.jpg">
-			</div>
-			<div class="player-chunk">
-				<img alt="image4" src="img/chunk4.jpg">
-			</div>
-			<div class="player-chunk">
-				<img alt="image5" src="img/chunk5.jpg">
-			</div>
-			<div class="player-chunk">
-				<img alt="image6" src="img/chunk6.jpg">
-			</div>
-		</div>
-	</div>
+<div class="my my-player">
+
 </div>
-<script src="script.js"></script>
+
+<script>
+	initPlayer({
+		target: '.my-player',
+
+		slides: [
+			{url: 'img/chunk1.jpg', alt: 'slide1'},
+			{url: 'img/chunk2.jpg', alt: 'slide2'},
+			{url: 'img/chunk3.jpg', alt: 'slide3'},
+			{url: 'img/chunk4.jpg', alt: 'slide4'},
+			{url: 'img/chunk5.jpg', alt: 'slide5'},
+			{url: 'img/chunk6.jpg', alt: 'slide6'},
+		],
+
+		delayPerChunk: 5,
+	});
+</script>
 </body>
 </html>

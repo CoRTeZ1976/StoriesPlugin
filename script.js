@@ -1,62 +1,102 @@
-function initPlayer() {
-	
-}
-
-document.querySelector('.player-chunk-prev').addEventListener('click', () => {
-	moveClass('player-chunk-active', 'previousElementSibling');
-	
+function initPlayer(params) {
 	const
-		el = moveClass('timeline-chunk-active', 'previousElementSibling');
+		target = document.querySelector(params.target);
 	
-	if (el) {
-		el.querySelector('.timeline-chunk-inner').style.width = '';
+	if (target === null || params.slides === undefined) {
+		return;
 	}
-});
-
-document.querySelector('.player-chunk-next').addEventListener('click', next);
-
-function moveClass(className, method) {
 	
-	const activeChunk = document.querySelector('.' + className),
-		next = activeChunk[method];
+	let
+		timelineChunks = '',
+		playerChunks = '',
+		isFirst = true;
 	
-	if (next) {
-		activeChunk.classList.remove(className);
-		next.classList.add(className);
+	for (const el of params.slides) {
+		timelineChunks += `
+			<div class="timeline-chunk ${isFirst ? 'timeline-chunk-active' : ''}">
+				<div class="timeline-chunk-inner"></div>
+			</div>`;
 		
-		return activeChunk;
+		playerChunks += `
+			<div class="player-chunk ${isFirst ? 'player-chunk-active' : ''}">
+				<img src="${el.url}" alt="${el.alt || ''}">
+			</div>`;
+		
+		isFirst = false;
 	}
 	
-	return null;
-}
-
-function next() {
-	moveClass('player-chunk-active', 'nextElementSibling');
+	target.innerHTML = `
+		<div class="player">
+			<div class="timeline">${timelineChunks}</div>
+			
+			<div class="player-content-wrapper">
+				<div class="player-chunk-switcher player-chunk-prev"></div>
+				<div class="player-chunk-switcher player-chunk-next"></div>
+				<div class="player-content">${playerChunks}</div>
+			</div>
+		</div>`;
 	
-	const
-		el = moveClass('timeline-chunk-active', 'nextElementSibling');
-	
-	if (el) {
-		el.querySelector('.timeline-chunk-inner').style.width = '';
-	}
-}
-
-function runInterval(time, step) {
-	setInterval(() => {
+	target.querySelector('.player-chunk-prev').addEventListener('click', () => {
+		moveClass('player-chunk-active', 'previousElementSibling');
+		
 		const
-			activeChunk = document.querySelector('.timeline-chunk-active').querySelector('.timeline-chunk-inner');
+			el = moveClass('timeline-chunk-active', 'previousElementSibling');
 		
-		let
-			w = parseFloat(activeChunk.style.width) || 0;
+		if (el) {
+			el.querySelector('.timeline-chunk-inner').style.width = '';
+		}
+	});
+	
+	target.querySelector('.player-chunk-next').addEventListener('click', next);
+	
+	function moveClass(className, method) {
 		
-		if (w === 100) {
-			next();
-			return;
+		const activeChunk = target.querySelector('.' + className),
+			next = activeChunk[method];
+		
+		if (next) {
+			activeChunk.classList.remove(className);
+			next.classList.add(className);
+			
+			return activeChunk;
 		}
 		
-		activeChunk.style.width = String(w + step) + '%';
+		return null;
+	}
+	
+	function next() {
+		moveClass('player-chunk-active', 'nextElementSibling');
 		
-	}, time * 1000 * step / 100);
+		const
+			el = moveClass('timeline-chunk-active', 'nextElementSibling');
+		
+		if (el) {
+			el.querySelector('.timeline-chunk-inner').style.width = '';
+		}
+	}
+	
+	let
+		timer;
+	
+	function runInterval(time, step) {
+		clearInterval(timer);
+		
+		timer = setInterval(() => {
+			const
+				activeChunk = target.querySelector('.timeline-chunk-active').querySelector('.timeline-chunk-inner');
+			
+			let
+				w = parseFloat(activeChunk.style.width) || 0;
+			
+			if (w === 100) {
+				next();
+				return;
+			}
+			
+			activeChunk.style.width = String(w + step) + '%';
+			
+		}, time * 1000 * step / 100);
+	}
+	
+	runInterval(params.delayPerChunk || 1, 1);
 }
-
-runInterval(5, 1);
