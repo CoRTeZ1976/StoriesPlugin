@@ -2,30 +2,13 @@
 <html lang="en">
 <head>
 	<meta charset=UTF-8">
-	<link href="styles.css" rel="stylesheet">
-	<script src="script.js"></script>
 	<title>Stories</title>
+	<link href="styles.css" rel="stylesheet">
+	<link href="player/lib.css" rel="stylesheet">
+	<script defer src="player/lib.js"></script>
+	<script defer src="index.js"></script>
 </head>
 <body>
-<div class="my my-player">
-
-</div>
-
-<script>
-	initPlayer({
-		target: '.my-player',
-
-		slides: [
-			{url: 'img/chunk1.jpg', alt: 'slide1'},
-			{url: 'img/chunk2.jpg', alt: 'slide2'},
-			{url: 'img/chunk3.jpg', alt: 'slide3'},
-			{url: 'img/chunk4.jpg', alt: 'slide4'},
-			{url: 'img/chunk5.jpg', alt: 'slide5'},
-			{url: 'img/chunk6.jpg', alt: 'slide6'},
-		],
-
-		delayPerChunk: 5,
-	});
-</script>
+<div class="my my-player"></div>
 </body>
 </html>
