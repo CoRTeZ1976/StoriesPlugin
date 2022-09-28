@@ -5,40 +5,37 @@ initPlayer({
 		{
 			url: 'img/chunk1.jpg',
 			alt: 'slide1',
+			
+			filter: ['contrast(200%)', 'blur(5px)'],
+			
 			overlays: [
 				{
 					type: 'text',
-					value: 'Hello',
+					value: 'Hello palms beach!',
+					
+					classes: ['watercolor'],
 					
 					styles: {
-						color: 'orange',
-						'font-size': '60px',
+						'font-size': '30px',
 						'text-shadow': '1px 1px #000',
 						
-						top: '10%',
-						left: '30%',
-						
-						transform: 'rotate(-30deg)',
-						
-						animation: 'scale 2s infinite ease-in-out'
+						top: '30%',
+						left: '20%',
 					}
 				},
 				
 				{
-					type: 'text',
-					value: 'palms!',
+					type: 'question',
+					question: 'Are you agree?',
+					
+					variants: [
+						'Yes',
+						'No',
+					],
 					
 					styles: {
-						color: 'orange',
-						'font-size': '50px',
-						'text-shadow': '1px 1px #000',
-						
-						top: '60%',
-						right: '30%',
-						
-						transform: 'rotate(90deg)',
-						
-						animation: 'scale 6s infinite ease-in-out',
+						top: '30%',
+						left: '20%',
 					}
 				},
 			],

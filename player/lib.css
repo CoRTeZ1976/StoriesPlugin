@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
 .player {
 	width: 370px;
 	margin: 0 auto;
+	font-family: Arial, sans-serif;
 }
 
 .timeline {
@@ -71,8 +74,42 @@
 	right: 0;
 }
 
-@keyframes scale {
-	50% {
-		transform: scale(2);
-	}
+.watercolor {
+	color: #FFF;
+	text-align: center;
+	text-shadow: 1px 1px #000;
+	font-size: 25px;
+	font-family: 'Lobster', cursive;
+	
+	background: url("../img/watercolor.jpg") no-repeat center;
+	background-size: contain;
+}
+
+.question {
+	margin-top: 70px;
+	padding: 10px;
+	
+	font-size: 15px;
+	color: #000;
+	
+	background-color: #766161;
+	border-radius: 10px;
+}
+
+.question-answer {
+	display: flex;
+	margin-top: 10px;
+}
+
+.question-answer > button {
+	width: 100%;
+	
+	border: none;
+	
+	padding: 5px;
+	margin: 0;
+}
+
+.question-answer > button + button {
+	margin-left: 5px;
 }
