@@ -13,7 +13,18 @@ export class Question extends Overlay {
 	 */
 	variants = ['Yes', 'No'];
 	
-	/** @override */
+	/** @override
+	 * @param {{
+	 *     question: string,
+	 *     variants?: string[],
+	 *     alt?: string,
+	 *     classes?: string[],
+	 *     styles?: Object<string, string>
+	 * }=} [params] - параметры наложения:
+	 *
+	 * 1. question - текст вопроса
+	 * 2. [variants] - варианты ответа
+	 */
 	constructor(params) {
 		super(params);
 		this.question = params?.question;

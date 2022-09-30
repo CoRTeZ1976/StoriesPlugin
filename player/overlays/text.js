@@ -7,7 +7,16 @@ export class Text extends Overlay {
 	 */
 	text;
 	
-	/** @override */
+	/** @override
+	 * @param {{
+	 *     text: string,
+	 *     alt?: string,
+	 *     classes?: string[],
+	 *     styles?: Object<string, string>
+	 * }=} [params] - параметры наложения:
+	 *
+	 * 1. text - текст-содержимое наложение
+	 */
 	constructor(params) {
 		super(params);
 		this.text = params?.text;

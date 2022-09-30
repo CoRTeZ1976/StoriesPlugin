@@ -13,7 +13,19 @@ export class Images extends Overlay {
 	 */
 	alt = '';
 	
-	/** @override */
+	/** @override
+	 *
+	 * @param {{
+	 *     src: string,
+	 *     type: string,
+	 *     alt?: string,
+	 *     classes?: string[],
+	 *     styles?: Object<string, string>
+	 * }=} [params] - параметры наложения:
+	 *
+	 * 1. src - путь к изображению
+	 * 2. [alt] - альтернативный текст изображения
+	 */
 	constructor(params) {
 		super(params);
 		this.src = params?.src;
