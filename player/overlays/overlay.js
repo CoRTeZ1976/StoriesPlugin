@@ -39,7 +39,7 @@ export class Overlay {
 		
 		this.classes = params?.classes ?? this.classes;
 		
-		if (Array.isArray(this.classes)) {
+		if (!Array.isArray(this.classes)) {
 			throw new TypeError('Additional classes can be defined only is array');
 		}
 		

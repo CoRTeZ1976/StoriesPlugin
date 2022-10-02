@@ -29,14 +29,14 @@ export class Question extends Overlay {
 		super(params);
 		this.question = params?.question;
 		
-		if (typeof this.src !== 'string') {
-			throw new ReferenceError('A question text to the created overlay is not specified')
+		if (typeof this.question !== 'string') {
+			throw new ReferenceError('A question text to the created overlay is not specified');
 		}
 		
 		this.variants = params?.variants;
 		
 		if (this.variants.length === 0) {
-			throw new Error('There is should be at least one variant of answering')
+			throw new Error('There is should be at least one variant of answering');
 		}
 	}
 	

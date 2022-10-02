@@ -1,5 +1,7 @@
-import { Overlay } from './overlays/overlay.js';
-import * as overlays from './overlays/index.js'
+import * as overlays from './overlays/index.js';
+import { Overlay } from "./overlays/overlay.js";
+
+import ClassSwitcher from './classSwitcher.js';
 
 /**
  * @typedef {{url: string, alt?: string, overlays?: Overlay[]}>
@@ -11,7 +13,7 @@ const Slide = null;
  */
 const Slides = null;
 
-export class Player {
+export default class Player {
 	/**
 	 * Контейнер для плеера
 	 * @type {Element}
@@ -31,19 +33,25 @@ export class Player {
 	delayPerChunk = 1;
 	
 	/**
+	 * Экземпляр ClassSwitcher
+	 * @protected
+	 */
+	cs;
+	
+	/**
 	 * Создает объект плеер.
 	 *
 	 * @param {{
-	 * 		target: string,
-	 * 		slides: Slides,
-	 * 		delayPerChunk?: number
-	 * 	}} params - параметры инициализации:
+	 *    target: string,
+	 *    delayPerChunk: number,
+	 *    slides: [],
+	 *    }} params - параметры инициализации:
 	 *
-	 * 	1. target - место инициализации плеера, CSS селектор;
-	 * 	2. slides - список слайдо плеера;
-	 * 	3. delayPerChunk - как долго показывается один слайд.
+	 * 	1. target - место инициализации плеера, CSS селектор
+	 * 	2. delayPerChunk - как долго показывается один слайд
+	 * 	3. slides - список слайдов плеера
 	 *
-	 * @return {Element|null}
+	 * @returns {Element|null}
 	 */
 	
 	constructor(params) {
@@ -60,21 +68,28 @@ export class Player {
 		}
 		
 		this.delayPerChunk = params?.delayPerChunk ?? this.delayPerChunk;
+		
+		this.cs = new ClassSwitcher(this.target);
+		
+		this.mount();
 	}
 	
-	generatePlayerLayout() {
-		return `
-			<div class="player">
-				<div class="timeline">${timelineChunks}</div>
-				
-				<div class="player-content-wrapper">
-					<div class="player-chunk-switcher player-chunk-prev"></div>
-					<div class="player-chunk-switcher player-chunk-next"></div>
-					<div class="player-content">${playerChunks}</div>
-				</div>
-			</div>`;
+	/**
+	 * Монтирует элементы плеера к target
+	 */
+	mount() {
+		this.target.appendChild(this.generatePlayerLayout());
+		
+		this.target.querySelector('.player-chunk-prev').addEventListener('click', this.cs.switchToPrevChunk.bind(this.cs));
+		this.target.querySelector('.player-chunk-next').addEventListener('click', this.cs.switchToNextChunk.bind(this.cs));
+		
+		this.cs.runChunkSwitching(this.delayPerChunk || 1, 0.1);
 	}
 	
+	/**
+	 * Генерирует элементы временной шкалы
+	 * @returns {DocumentFragment}
+	 */
 	generateTimelineChunks() {
 		const
 			wrapper = document.createDocumentFragment();
@@ -94,6 +109,10 @@ export class Player {
 		return wrapper;
 	}
 	
+	/**
+	 * Генерирует элементы слайдов
+	 * @returns {DocumentFragment}
+	 */
 	generatePlayerChunk() {
 		const
 			wrapper = document.createDocumentFragment();
@@ -113,16 +132,19 @@ export class Player {
 				<img src="${slide.url}" alt="${slide.alt ?? ''}" style="${style.join(';')}">
 			</div>`;
 			
-			wrapper.appendChild(el);
+			const chunk = el.children[0];
+			chunk.appendChild(this.generateOverlays(slide));
+			
+			wrapper.appendChild(chunk);
 		}
 		
 		return wrapper;
 	}
 	
 	/**
-	 *
-	 * @param {Slide} slide
-	 * @returns {Node}
+	 * Генерирует элементы наложения на слайд
+	 * @param {Slide} slide - объект слайда
+	 * @returns {DocumentFragment}
 	 */
 	generateOverlays(slide) {
 		const wrapper = document.createDocumentFragment();
@@ -141,5 +163,39 @@ export class Player {
 		}
 		
 		return wrapper;
+	}
+	
+	/**
+	 * Генерирует элементы плеера
+	 * @returns {Element}
+	 */
+	generatePlayerLayout() {
+		const timeline = document.createElement('div');
+		
+		timeline.setAttribute('class', 'timeline');
+		timeline.appendChild(this.generateTimelineChunks());
+		
+		const content = document.createElement('div');
+		
+		content.setAttribute('class', 'player-content');
+		content.appendChild(this.generatePlayerChunk());
+		
+		const contentWrapper = document.createElement('div');
+		
+		contentWrapper.setAttribute('class', 'player-content-wrapper');
+		contentWrapper.innerHTML = `
+			<div class="player-chunk-switcher player-chunk-prev"></div>
+			<div class="player-chunk-switcher player-chunk-next"></div>
+		`;
+		
+		contentWrapper.appendChild(content);
+		
+		const player = document.createElement('div');
+		
+		player.setAttribute('class', 'player');
+		player.appendChild(timeline);
+		player.appendChild(contentWrapper);
+		
+		return player;
 	}
 }

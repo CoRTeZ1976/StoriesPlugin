@@ -1,5 +1,9 @@
-initPlayer({
-	target: '.my-player',
+import Player from "./player/player.js";
+
+new Player({
+	target: '.player',
+	
+	delayPerChunk: 5,
 	
 	slides: [
 		{
@@ -10,8 +14,8 @@ initPlayer({
 			
 			overlays: [
 				{
-					type: 'text',
-					value: 'Hello palms beach!',
+					type: 'Text',
+					text: 'Hello palms beach!',
 					
 					classes: ['watercolor'],
 					
@@ -23,9 +27,8 @@ initPlayer({
 						left: '20%',
 					}
 				},
-				
 				{
-					type: 'question',
+					type: 'Question',
 					question: 'Are you agree?',
 					
 					variants: [
@@ -40,12 +43,11 @@ initPlayer({
 				},
 			],
 		},
+		
 		{url: 'img/chunk2.jpg', alt: 'slide2'},
 		{url: 'img/chunk3.jpg', alt: 'slide3'},
 		{url: 'img/chunk4.jpg', alt: 'slide4'},
 		{url: 'img/chunk5.jpg', alt: 'slide5'},
 		{url: 'img/chunk6.jpg', alt: 'slide6'},
 	],
-	
-	delayPerChunk: 5,
 });
