@@ -1,6 +1,6 @@
-import Player from "./player/player.js";
+import Lib from "./player/lib.js";
 
-new Player({
+new Lib({
 	target: '.player',
 	
 	delayPerChunk: 5,
@@ -15,7 +15,7 @@ new Player({
 			overlays: [
 				{
 					type: 'Text',
-					text: 'Hello palms beach!',
+					text: 'Great weather!',
 					
 					classes: ['watercolor'],
 					
@@ -37,8 +37,8 @@ new Player({
 					],
 					
 					styles: {
-						top: '30%',
-						left: '20%',
+						top: '45%',
+						left: '30%',
 					}
 				},
 			],

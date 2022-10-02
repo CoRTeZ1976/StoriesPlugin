@@ -4,6 +4,7 @@
 	width: 370px;
 	margin: 0 auto;
 	font-family: Arial, sans-serif;
+	user-select: none;
 }
 
 .timeline {
@@ -75,6 +76,10 @@
 }
 
 .watercolor {
+	display: flex;
+	align-items: center;
+	min-height: 4em;
+	
 	color: #FFF;
 	text-align: center;
 	text-shadow: 1px 1px #000;
@@ -97,8 +102,10 @@
 }
 
 .question-answer {
+	position: relative;
 	display: flex;
 	margin-top: 10px;
+	z-index: 2;
 }
 
 .question-answer > button {

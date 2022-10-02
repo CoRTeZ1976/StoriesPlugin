@@ -47,10 +47,18 @@ export class Question extends Overlay {
 		el.innerHTML = `
 				<div class="question">
 					${this.question}
-					<div class="question question-answer">
+					<div class="question-answer">
 						${this.variants.map((label, i) => `<button value="${i}">${label}</button>`).join(' ')}
 					</div>
 				</div>`;
+		
+		el.querySelector('.question-answer').addEventListener('click', (e) => {
+			if (e.target.tagName !== 'BUTTON') {
+				return;
+			}
+			
+			alert(e.target.value);
+		});
 		
 		return el;
 	}
